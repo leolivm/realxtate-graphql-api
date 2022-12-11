@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --no-notify --respawn --transpile-only --ignore-watch node_modules src/shared/infra/main/server.ts",
+    "dev": "npm run services:up && npm run api:dev",
+    "api:dev": "ts-node-dev -r tsconfig-paths/register --no-notify --respawn --transpile-only --ignore-watch node_modules src/shared/infra/main/server.ts",
+    "services:up": "docker-compose up -d",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prisma": "npx prisma",
     "prepare": "husky install"
