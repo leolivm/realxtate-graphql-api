@@ -1,9 +1,11 @@
 import { inject, injectable } from 'tsyringe'
 
-import { IUserDTO } from '../dtos/create-user-dto'
+import { AppError } from '@shared/errors/app-error'
+import { IHashProvider } from '@shared/container/providers/hash-provider/models/IHashProvider'
+
+import { IUserDTO } from '@modules/users/dtos/create-user-dto'
 import { User } from '@modules/users/infra/prisma/models/user'
 import { IUsersRepository } from '@modules/users/repositories/user-repository'
-import { IHashProvider } from '@shared/container/providers/hash-provider/models/IHashProvider'
 
 @injectable()
 export class CreateUserService {
@@ -22,7 +24,7 @@ export class CreateUserService {
 
     const emailExists = await this.usersRepository.findByEmail(email)
 
-    if (emailExists) throw new Error('Email already used')
+    if (emailExists) throw new AppError('Email already used', '400')
 
     return this.usersRepository.create({ name, email, password: hashedPassword })
   }

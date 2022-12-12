@@ -8,7 +8,7 @@ import { IUsersRepository } from '@modules/users/repositories/user-repository'
 export class UsersRepository implements IUsersRepository {
   constructor(private prisma: PrismaClient = context.prisma) {}
 
-  public async findByEmail(email: string): Promise<User | null> {
+  public async findByEmail(email: string): Promise<User | undefined | null> {
     return await this.prisma.users.findUnique({
       where: { email },
     })
