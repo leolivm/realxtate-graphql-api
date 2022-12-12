@@ -1,20 +1,20 @@
 import 'reflect-metadata'
 
 import { CreateUserService } from '@modules/users/use-cases/create-user.service'
-import { FakeUserRepository } from '@modules/users/repositories/fakes/fake-user-repository'
+import { MockUserRepository } from '@modules/users/repositories/mocks/mock-user-repository'
 
 import { AppError } from '@shared/errors/app-error'
-import { FakeHashProvider } from '@shared/container/providers/hash-provider/fakes/fake-hash-provider'
+import { MockHashProvider } from '@shared/container/providers/hash-provider/mocks/mock-hash-provider'
 
-let fakeUserRepository: FakeUserRepository
-let fakeHashProvider: FakeHashProvider
+let mockUserRepository: MockUserRepository
+let mockHashProvider: MockHashProvider
 let createUserService: CreateUserService
 
 describe('Create user', () => {
   beforeEach(() => {
-    fakeUserRepository = new FakeUserRepository()
-    fakeHashProvider = new FakeHashProvider()
-    createUserService = new CreateUserService(fakeHashProvider, fakeUserRepository)
+    mockUserRepository = new MockUserRepository()
+    mockHashProvider = new MockHashProvider()
+    createUserService = new CreateUserService(mockHashProvider, mockUserRepository)
   })
 
   it('should be able to create a new user', async () => {

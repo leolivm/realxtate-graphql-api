@@ -4,7 +4,7 @@ import { IUserDTO } from '@modules/users/dtos/create-user-dto'
 import { User } from '@modules/users/infra/prisma/models/user'
 import { IUsersRepository } from '@modules/users/repositories/user-repository'
 
-export class FakeUserRepository implements IUsersRepository {
+export class MockUserRepository implements IUsersRepository {
   private users: User[] = []
 
   public async findByEmail(email: string): Promise<User | undefined> {

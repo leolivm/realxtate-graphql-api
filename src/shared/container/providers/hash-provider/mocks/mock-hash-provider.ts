@@ -1,6 +1,6 @@
 import { IHashProvider } from '@shared/container/providers/hash-provider/models/IHashProvider'
 
-export class FakeHashProvider implements IHashProvider {
+export class MockHashProvider implements IHashProvider {
   public async generateHash(payload: string): Promise<string> {
     return payload
   }
