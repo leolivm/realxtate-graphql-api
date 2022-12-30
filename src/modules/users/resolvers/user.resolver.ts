@@ -1,5 +1,5 @@
 import { container } from 'tsyringe'
-import { Arg, Mutation, Query, Resolver } from 'type-graphql'
+import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql'
 
 import { User } from '@modules/users/infra/prisma/models/user'
 
@@ -11,10 +11,12 @@ import { SignUpController } from '@modules/users/infra/controllers/sign-up.contr
 import { FindUserController } from '@modules/users/infra/controllers/find-user.controller'
 
 import { UserSchema, UserWithToken, LoginSchema } from '@modules/users/schema/user'
+import { authMiddleware } from '@shared/infra/middlewares/authMiddleware'
 
 @Resolver()
 export class UserResolver {
   @Query(() => User, { nullable: true })
+  @UseMiddleware(authMiddleware)
   async user(@Arg('token') token: string): Promise<FindByToken | undefined> {
     return await container.resolve(FindUserController).handle(token)
   }
