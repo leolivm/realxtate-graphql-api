@@ -11,7 +11,7 @@ import { SignUpController } from '@modules/users/infra/controllers/sign-up.contr
 import { FindUserController } from '@modules/users/infra/controllers/find-user.controller'
 
 import { UserSchema, UserWithToken, LoginSchema } from '@modules/users/schema/user'
-import { authMiddleware } from '@shared/infra/middlewares/authMiddleware'
+import { authMiddleware } from '@shared/infra/middlewares/auth-middleware'
 
 @Resolver()
 export class UserResolver {
