@@ -10,7 +10,7 @@ interface AuthContext {
 }
 
 export const authMiddleware: MiddlewareFn<AuthContext> = async ({ args, context }, next) => {
-  const token = args.token
+  const token = args.token || args.data.token
   const tokenProvider = new TokenProvider()
 
   if (!token) {
