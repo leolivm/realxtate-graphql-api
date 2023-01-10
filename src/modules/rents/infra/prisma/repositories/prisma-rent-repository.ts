@@ -11,4 +11,8 @@ export class RentsRepository implements IRentRepository {
   public async create(data: IRentDTO): Promise<Rents> {
     return this.prisma.rents.create({ data })
   }
+
+  public async findAll(): Promise<Rents[]> {
+    return await this.prisma.rents.findMany()
+  }
 }
