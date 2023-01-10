@@ -7,6 +7,7 @@ import { MockUserRepository } from '@modules/users/repositories/mocks/mock-user-
 import { MockTokenRepository } from '@modules/users/repositories/mocks/mock-token-repository'
 import { MockTokenProvider } from '@shared/container/providers/token-provider/mocks/mock-token-provider'
 
+import { AppError } from '@shared/errors/app-error'
 import { MockHashProvider } from '@shared/container/providers/hash-provider/mocks/mock-hash-provider'
 
 let mockUserRepository: MockUserRepository
@@ -50,5 +51,9 @@ describe('Find user', () => {
     const id = authenticate?.user.id === findUser?.id
 
     expect(id).toBeTruthy()
+  })
+
+  it('should not be able to find user from non-existent token', async () => {
+    await expect(findUserService.handle('non-existing-token')).rejects.toBeInstanceOf(AppError)
   })
 })

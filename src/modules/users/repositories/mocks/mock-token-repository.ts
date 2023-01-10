@@ -4,6 +4,7 @@ import { ITokenDTO } from '@modules/users/dtos/create-token-dto'
 import { Tokens } from '@modules/users/infra/prisma/models/tokens'
 import { FindByToken } from '@modules/users/dtos/find-user-by-token-dto'
 import { ITokensRepository } from '@modules/users/repositories/token-repository'
+import { AppError } from '@shared/errors/app-error'
 
 export class MockTokenRepository implements ITokensRepository {
   private tokens: Tokens[] = []
@@ -29,10 +30,6 @@ export class MockTokenRepository implements ITokensRepository {
       }
     }
 
-    return {
-      id: '',
-      name: '',
-      email: '',
-    }
+    throw new AppError('Token not found.', '401')
   }
 }
