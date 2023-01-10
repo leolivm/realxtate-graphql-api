@@ -18,6 +18,7 @@ model users {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
   tokens     tokens[]
+  rents      rents[]
 }
 
 model tokens {
@@ -27,4 +28,25 @@ model tokens {
   userId     String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
+}
+
+model rents {
+  id           String   @id @default(uuid())
+  monthly_cost Int
+  currency     String
+  bedrooms     Int
+  bathrooms    Int
+  square_feets Int
+  image_url    String
+  title        String
+  description  String
+  location     String
+  latitude     Decimal
+  longitude    Decimal
+  rent         Boolean  @default(true)
+  contact      String
+  user         users    @relation(fields: [userId], references: [id])
+  userId       String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @default(now())
 }
