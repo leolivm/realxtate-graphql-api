@@ -1,30 +1,32 @@
 import 'reflect-metadata'
 import { Prisma } from '@prisma/client'
 
+import { CreateRentService } from '@modules/rents/use-cases/create-rent.service'
+import { FindAllRentsService } from '@modules/rents/use-cases/find-all-rents.service'
+import { MockRentsRepository } from '@modules/rents/repositories/mocks/mock-rent-repository'
+
 import { LoginService } from '@modules/users/use-cases/login.service'
 import { CreateUserService } from '@modules/users/use-cases/create-user.service'
 import { MockUserRepository } from '@modules/users/repositories/mocks/mock-user-repository'
+import { MockTokenRepository } from '@modules/users/repositories/mocks/mock-token-repository'
 
-import { AppError } from '@shared/errors/app-error'
 import { MockHashProvider } from '@shared/container/providers/hash-provider/mocks/mock-hash-provider'
 import { MockTokenProvider } from '@shared/container/providers/token-provider/mocks/mock-token-provider'
 
-import { CreateRentService } from '@modules/rents/use-cases/create-rent.service'
-import { MockRentsRepository } from '@modules/rents/repositories/mocks/mock-rent-repository'
-import { MockTokenRepository } from '@modules/users/repositories/mocks/mock-token-repository'
 
-let mockUserRepository: MockUserRepository
-let mockHashProvider: MockHashProvider
-let createUserService: CreateUserService
-
-let mockTokenProvider: MockTokenProvider
 let loginService: LoginService
+let createUserService: CreateUserService
+let mockUserRepository: MockUserRepository
 
-let mockRentsRepository: MockRentsRepository
-let mockTokenRepository: MockTokenRepository
 let createRentService: CreateRentService
+let findAllRentsService: FindAllRentsService
+let mockRentsRepository: MockRentsRepository
 
-describe('Create rent', () => {
+let mockHashProvider: MockHashProvider
+let mockTokenProvider: MockTokenProvider
+let mockTokenRepository: MockTokenRepository
+
+describe('Find all rents', () => {
   beforeEach(() => {
     mockUserRepository = new MockUserRepository()
     mockHashProvider = new MockHashProvider()
@@ -33,6 +35,7 @@ describe('Create rent', () => {
     mockTokenProvider = new MockTokenProvider()
     createRentService = new CreateRentService(mockTokenRepository, mockRentsRepository)
     createUserService = new CreateUserService(mockHashProvider, mockUserRepository)
+    findAllRentsService = new FindAllRentsService(mockRentsRepository)
     loginService = new LoginService(
       mockHashProvider,
       mockUserRepository,
@@ -41,7 +44,7 @@ describe('Create rent', () => {
     )
   })
 
-  it('should be abe to create a rent', async () => {
+  it('should be able to find all rents', async () => {
     const user = await createUserService.handle({
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -53,8 +56,7 @@ describe('Create rent', () => {
       password: user!.password,
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const rent: any = await createRentService.handle({
+    const rent = await createRentService.handle({
       rent: true,
       title: 'House',
       contact: '+55 (99) 99999999',
@@ -71,28 +73,6 @@ describe('Create rent', () => {
       token: authenticate!.token,
     })
 
-    expect(rent).toHaveProperty('data.monthly_cost')
-    expect(rent?.data?.userId).toEqual(user!.id)
-  })
-
-  it('should not be able to create a rent with non existing user', async () => {
-    const payload = {
-      rent: true,
-      title: 'House',
-      contact: '+55 (99) 99999999',
-      bedrooms: 2,
-      currency: 'USD',
-      latitude: new Prisma.Decimal(10),
-      longitude: new Prisma.Decimal(10),
-      location: 'San Francisco',
-      bathrooms: 1,
-      image_url: 'https://github.com/leolivm',
-      description: 'Big one',
-      monthly_cost: 250.0,
-      square_feets: 75,
-      token: 'non-existing-user-token',
-    }
-
-    await expect(createRentService.handle(payload)).rejects.toBeInstanceOf(AppError)
+    expect(await findAllRentsService.handle()).toMatchObject([rent])
   })
 })
