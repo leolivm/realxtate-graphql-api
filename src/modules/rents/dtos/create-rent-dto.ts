@@ -12,6 +12,7 @@ export interface IRentDataDTO {
   location: string
   latitude: Prisma.Decimal
   longitude: Prisma.Decimal
+  is_verified: boolean
   rent: boolean
   contact: string
   token: string
@@ -30,6 +31,7 @@ export interface IRentDTO {
   latitude: Prisma.Decimal
   longitude: Prisma.Decimal
   rent: boolean
+  is_verified: boolean
   contact: string
   userId: string
 }

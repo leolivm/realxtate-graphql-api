@@ -44,6 +44,7 @@ model rents {
   latitude     Decimal
   longitude    Decimal
   rent         Boolean  @default(true)
+  is_verified  Boolean  @default(false)
   contact      String
   user         users    @relation(fields: [userId], references: [id])
   userId       String

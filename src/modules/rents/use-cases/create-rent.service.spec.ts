@@ -68,6 +68,7 @@ describe('Create rent', () => {
       description: 'Big one',
       monthly_cost: 250.0,
       square_feets: 75,
+      is_verified: false,
       token: authenticate!.token,
     })
 
@@ -90,6 +91,7 @@ describe('Create rent', () => {
       description: 'Big one',
       monthly_cost: 250.0,
       square_feets: 75,
+      is_verified: false,
       token: 'non-existing-user-token',
     }
 

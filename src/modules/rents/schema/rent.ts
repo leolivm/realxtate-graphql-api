@@ -41,6 +41,9 @@ export class RentSchema {
   rent: boolean
 
   @Field()
+  is_verified: boolean
+
+  @Field()
   contact: string
 
   @Field()

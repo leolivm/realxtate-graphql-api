@@ -35,6 +35,7 @@ export class CreateRentService {
       image_url: data.image_url,
       longitude: data.longitude,
       description: data.description,
+      is_verified: data.is_verified,
       monthly_cost: data.monthly_cost,
       square_feets: data.square_feets,
       userId: userFound.id,

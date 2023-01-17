@@ -45,6 +45,9 @@ export class Rents {
   @Field(() => Boolean)
   rent: boolean
 
+  @Field(() => Boolean)
+  is_verified: boolean
+
   @Field(() => String)
   contact: string
 
