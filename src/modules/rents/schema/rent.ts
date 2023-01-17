@@ -4,8 +4,11 @@ import { GraphQLDecimal } from 'prisma-graphql-type-decimal'
 
 @InputType()
 export class RentSchema {
-  @Field()
-  monthly_cost: number
+  @Field({ nullable: true })
+  monthly_cost?: number
+
+  @Field({ nullable: true })
+  cost?: number
 
   @Field()
   currency: string

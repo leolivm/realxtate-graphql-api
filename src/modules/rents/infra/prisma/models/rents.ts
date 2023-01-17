@@ -9,8 +9,11 @@ export class Rents {
   @Field(() => ID)
   id: string
 
-  @Field(() => Number)
-  monthly_cost: number
+  @Field(() => Number, { nullable: true })
+  monthly_cost?: number | null
+
+  @Field(() => Number, { nullable: true })
+  cost?: number | null
 
   @Field(() => String)
   currency: string

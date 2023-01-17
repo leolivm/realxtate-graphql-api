@@ -32,7 +32,8 @@ model tokens {
 
 model rents {
   id           String   @id @default(uuid())
-  monthly_cost Int
+  monthly_cost Int?
+  cost         Int?
   currency     String
   bedrooms     Int
   bathrooms    Int

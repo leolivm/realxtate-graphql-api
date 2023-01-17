@@ -38,6 +38,7 @@ export class CreateRentService {
       is_verified: data.is_verified,
       monthly_cost: data.monthly_cost,
       square_feets: data.square_feets,
+      cost: data.cost,
       userId: userFound.id,
     }
 

@@ -1,7 +1,8 @@
 import { Prisma } from '@prisma/client'
 
 export interface IRentDataDTO {
-  monthly_cost: number
+  monthly_cost?: number
+  cost?: number
   currency: string
   bedrooms: number
   bathrooms: number
@@ -19,7 +20,8 @@ export interface IRentDataDTO {
 }
 
 export interface IRentDTO {
-  monthly_cost: number
+  monthly_cost?: number
+  cost?: number
   currency: string
   bedrooms: number
   bathrooms: number
